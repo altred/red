@@ -3,10 +3,10 @@ Red/System [
 	Author:  "Qingtian Xie"
 	File: 	 %percent.reds
 	Tabs:	 4
-	Rights:  "Copyright (C) 2011-2012 Nenad Rakocevic. All rights reserved."
+	Rights:  "Copyright (C) 2011-2015 Nenad Rakocevic. All rights reserved."
 	License: {
 		Distributed under the Boost Software License, Version 1.0.
-		See https://github.com/dockimbel/Red/blob/master/BSL-License.txt
+		See https://github.com/red/red/blob/master/BSL-License.txt
 	}
 ]
 
@@ -28,7 +28,7 @@ percent: context [
 		value	[float!]
 		return: [red-float!]
 		/local
-			int [red-float!]
+			fl [red-float!]
 	][
 		fl: as red-float! stack/arguments
 		fl/header: TYPE_PERCENT
@@ -36,37 +36,50 @@ percent: context [
 		fl
 	]
 
+	rs-make-at: func [
+		slot	[red-value!]
+		value	[float!]
+		return:	[red-float!]
+		/local
+			p	[red-float!]
+	][
+		p: as red-float! slot
+		p/header: TYPE_PERCENT
+		p/value: value
+		p
+	]
+
+	make-at: func [
+		cell 	[cell!]
+		high	[integer!]
+		low		[integer!]
+		return: [red-float!]
+	][
+		cell/header: TYPE_PERCENT
+		cell/data2: low
+		cell/data3: high
+		as red-float! cell
+	]
+
 	make-in: func [
 		parent	[red-block!]
 		high	[integer!]
 		low		[integer!]
 		return: [red-float!]
-		/local
-			cell [cell!]
 	][
 		#if debug? = yes [if verbose > 0 [print-line "percent/make-in"]]
 
-		cell: ALLOC_TAIL(parent)
-		cell/header: TYPE_PERCENT
-		cell/data2: low
-		cell/data3: high
-		as red-float! cell
+		make-at ALLOC_TAIL(parent) high low
 	]
 	
 	push64: func [
 		high	[integer!]
 		low		[integer!]
 		return: [red-float!]
-		/local
-			cell [cell!]
 	][
 		#if debug? = yes [if verbose > 0 [print-line "percent/push64"]]
 
-		cell: stack/push*
-		cell/header: TYPE_PERCENT
-		cell/data2: low
-		cell/data3: high
-		as red-float! cell
+		make-at stack/push* high low
 	]
 
 	push: func [
@@ -82,6 +95,8 @@ percent: context [
 		fl/value: value
 		fl
 	]
+
+	;-- make: :to
 
 	form: func [
 		fl		   [red-float!]
@@ -142,8 +157,8 @@ percent: context [
 			INHERIT_ACTION	;remainder
 			INHERIT_ACTION	;round
 			INHERIT_ACTION	;subtract
-			null			;even?
-			null			;odd?
+			INHERIT_ACTION	;even?
+			INHERIT_ACTION	;odd?
 			;-- Bitwise actions --
 			null			;and~
 			null			;complement
@@ -162,9 +177,11 @@ percent: context [
 			null			;index?
 			null			;insert
 			null			;length?
+			null			;move
 			null			;next
 			null			;pick
 			null			;poke
+			null			;put
 			null			;remove
 			null			;reverse
 			null			;select
