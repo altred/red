@@ -1,9 +1,10 @@
-[![Join the chat at https://gitter.im/red/red](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/red/red?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-[![Travis build](https://travis-ci.org/red/red.svg?branch=master)](https://travis-ci.org/red/red)
-[![Build status](https://ci.appveyor.com/api/projects/status/mie736c6x4268boo/branch/master?svg=true)](https://ci.appveyor.com/project/red/red/branch/master)
+[![Join the chat at https://gitter.im/altred/red](https://badges.gitter.im/altred/red.svg)](https://gitter.im/altred/red?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Red Programming Language
-------------------------
+
+Alt fork of the Red Programming Language
+----------------------------------------
+
+Because this is a friendly endeavor the rest of the readme.md is unchanged:
 
 **Red** is a new programming language strongly inspired by [Rebol](http://rebol.com), but with a broader field of usage thanks to its native-code compiler, from system programming to high-level scripting, while providing modern support for concurrency and multi-core CPUs.
 
